@@ -4,77 +4,50 @@ import java.net.*;
 import java.nio.BufferOverflowException;
 
 public class MyClient {
-public static void main(String[] args) {
-try{	
-Socket s=new Socket("127.0.0.1",50000);
+   public static void main(String[] args) {
 
-DataInputStream din = new DataInputStream(s.getInputStream());
-DataOutputStream dout=new DataOutputStream(s.getOutputStream());
-BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+      String str = new String();
 
- String str = "";
- String str2 = "";
+      try{	
+         Socket s=new Socket("127.0.0.1",50000);
 
-
-String username = System.getProperty("user.name");
-
-
-   
+         //DataInputStream din = new DataInputStream(s.getInputStream());
+         DataOutputStream dout=new DataOutputStream(s.getOutputStream());
+         BufferedReader br = new BufferedReader(new InputStreamReader(s.getInputStream()));
     
-   dout.write(("HELO\n").getBytes());
-   dout.flush();
+         dout.write(("HELO\n").getBytes());
+         dout.flush();
+ 
+         str = br.readLine();
+         PP(str);
 
-  // str2 = br.readLine();
-  //System.out.println("Server says: "+ str2 + "\n");
+         dout.write(("AUTH Sarthak\n").getBytes());
+         dout.flush();
   
-   dout.write(("AUTH Sarthak\n").getBytes());
-   dout.flush();
+         str = br.readLine();
+         PP(str);
+
+         dout.write(("REDY\n").getBytes());
+         dout.flush();
+
+         str = br.readLine();
+         PP(str);
+
+         dout.write(("GETS Capable"+ "\n").getBytes());
+         dout.flush();
+
+         dout.close();
+         s.close();   
+      
+      }catch(Exception e){
+         System.out.println(e);
+      }
+
+   }  
   
-   // str2 = new String(br.readLine());
-   // System.out.println("Server says: "+ str2 + "\n");
-  
-   dout.write(("REDY\n").getBytes());
-   dout.flush();
-
-   str = br.readLine();
-   System.out.println(str);
-
-   //break string
-
-   dout.write(("GETS Capable\n" + ).getBytes());
-   dout.flush();
-
-
-  
-
-
-   // dout.write(("REDY\n").getBytes());
-   // dout.flush();
-
-   // str = br.readLine();
-   // //System.out.println(str + "\n");
-   
-   // dout.write(("REDY\n").getBytes());
-   // dout.flush();
-   
-
-   
-   //dout.write(("GETS Capable\n" + ).getBytes());
-   //dout.flush();
-
-   
-   //System.out.println(str2+ "\n");
-
-   dout.close();
-   s.close();
-   
-
+   static void PP(String s){
+      System.out.println("Computer Says: " + s);
    }
-catch(Exception e){System.out.println(e);}
-
-}
-  
-
 
 }
 
@@ -130,3 +103,20 @@ catch(Exception e){System.out.println(e);}
 //dout.flush();
 
 
+
+   // dout.write(("REDY\n").getBytes());
+   // dout.flush();
+
+   // str = br.readLine();
+   // //System.out.println(str + "\n");
+   
+   // dout.write(("REDY\n").getBytes());
+   // dout.flush();
+   
+
+   
+   //dout.write(("GETS Capable\n" + ).getBytes());
+   //dout.flush();
+
+   
+   //System.out.println(str2+ "\n");
