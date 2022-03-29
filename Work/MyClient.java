@@ -33,8 +33,32 @@ public class MyClient {
          str = br.readLine();
          PP(str);
 
-         dout.write(("GETS Capable"+ "\n").getBytes());
+         JobnSplit job;
+         job = new JobnSplit(str);
+
+         int k = job.core;
+         dout.write(("GETS Capable "+ k + " " + job.getmemory()+ " " + job.getdisk() + " " +"\n").getBytes());
          dout.flush();
+
+         str = br.readLine();
+         PP(str);
+      //loop
+         dout.write(("OK\n").getBytes());
+         dout.flush();
+
+         int i = 0;
+         //str = br.readLine();
+         //for(int i = 0; i < 140; i++){ 
+         //while(str != "."){
+            str = br.readLine(); //Need the amount of jobs :)
+            PP((str + " AMOUNT: " + i));
+         //}  
+
+         dout.write(("OK\n").getBytes());
+         dout.flush();
+
+         str = br.readLine();
+         PP(str);
 
          dout.close();
          s.close();   
