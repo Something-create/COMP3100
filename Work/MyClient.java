@@ -42,23 +42,81 @@ public class MyClient {
 
          str = br.readLine();
          PP(str);
-      //loop
+         DataSplit data = new DataSplit(str);
+
+
          dout.write(("OK\n").getBytes());
          dout.flush();
 
-         int i = 0;
-         //str = br.readLine();
-         //for(int i = 0; i < 140; i++){ 
-         //while(str != "."){
-            str = br.readLine(); //Need the amount of jobs :)
-            PP((str + " AMOUNT: " + i));
-         //}  
+
+         //Collects all the jobs that are avaibable
+        JobState[] dnsJobs = new JobState[data.nRecs+1];
+
+         for(int i = 0; i < data.nRecs; i++){ 
+            str = br.readLine(); 
+            dnsJobs[i] = new JobState(str);
+            System.out.println(str);
+         }  
 
          dout.write(("OK\n").getBytes());
          dout.flush();
 
          str = br.readLine();
          PP(str);
+
+       // Search algorithm to find the largest
+      
+       /*
+       try to find the server with the largest core
+       then store the the serverID and the core amount 
+       And the amount of servers that are there then keep
+       sending jobs until the server count is meet then send
+       them back to 0 and countiue untill it doesnt have more 
+       jobs. 
+
+       search algorithm 
+       1. Find the largest core
+         When they both are the same then choose the first one 
+            also get the server type
+            
+       2. Then with another loop find the amount of servers with that type
+        
+
+       it will be checked with java 1.8
+       next week demo
+       javac -source 1.8 _target 1.8 *.java
+      */ 
+         int big = 0;
+         int ao = 0;
+         String bigID = new String();
+         Boolean biggest = false;
+         
+         
+         for(int i = 1; i < data.nRecs;i++){
+            for(int x = 0; x < data.nRecs; x++){
+               if(dnsJobs[i].core == dnsJobs[x].core){
+                  if((dnsJobs[i].serverType).equals(dnsJobs[x].serverType)){
+                     ao++;
+                  }else{
+                     ao = 0;
+                  }
+               }else if(dnsJobs[i].core < dnsJobs[x].core){
+                   bigID = dnsJobs[x].serverType;
+                   biggest = true;
+                   big = dnsJobs[x].core;  
+               }else{
+                  ao = 0;
+               }
+            }
+            if(biggest)break;
+         }
+
+
+
+         System.out.println(bigID + " "+ ao + " " + big );
+         dout.write(("SCHD "+ job.jobID + " "+ dnsJobs[1].serverType+ " " + dnsJobs[1].serverID +"\n").getBytes());
+         dout.flush();
+
 
          dout.close();
          s.close();   
