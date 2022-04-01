@@ -1,4 +1,4 @@
-public class JobState {
+public class JobState implements Comparable<JobState> {
     
     String serverType = new String();
     int serverID;
@@ -65,7 +65,16 @@ public class JobState {
         return rJobs;
     }
 
-    
+    @Override
+    public int compareTo(JobState js){
+        if(this.core == js.core){
+            return 0;
+        }else if(this.core < js.core){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
 
 
 

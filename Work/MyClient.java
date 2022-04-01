@@ -4,17 +4,21 @@ import java.net.*;
 import java.nio.BufferOverflowException;
 
 public class MyClient {
+
+   static DataOutputStream dout;
+   static BufferedReader br; 
+
+   
    public static void main(String[] args) {
 
       String str = new String();
-
+     
       try{	
          Socket s=new Socket("127.0.0.1",50000);
-
-         //DataInputStream din = new DataInputStream(s.getInputStream());
-         DataOutputStream dout=new DataOutputStream(s.getOutputStream());
-         BufferedReader br = new BufferedReader(new InputStreamReader(s.getInputStream()));
-    
+         dout = new DataOutputStream(s.getOutputStream());
+         br = new BufferedReader(new InputStreamReader(s.getInputStream()));
+        // DataInputStream din = new DataInputStream(s.getInputStream());
+             
          dout.write(("HELO\n").getBytes());
          dout.flush();
  
@@ -86,37 +90,33 @@ public class MyClient {
        next week demo
        javac -source 1.8 _target 1.8 *.java
       */ 
-         int big = 0;
-         int ao = 0;
-         String bigID = new String();
-         Boolean biggest = false;
-         
-         
-         for(int i = 1; i < data.nRecs;i++){
-            for(int x = 0; x < data.nRecs; x++){
-               if(dnsJobs[i].core == dnsJobs[x].core){
-                  if((dnsJobs[i].serverType).equals(dnsJobs[x].serverType)){
-                     ao++;
-                  }else{
-                     ao = 0;
-                  }
-               }else if(dnsJobs[i].core < dnsJobs[x].core){
-                   bigID = dnsJobs[x].serverType;
-                   biggest = true;
-                   big = dnsJobs[x].core;  
-               }else{
-                  ao = 0;
-               }
-            }
-            if(biggest)break;
-         }
 
+      
+int big = 0;
+int ao = 0;
+String bigID = new String();
 
+for(int i = 1; i < data.nRecs;i++){
+   for(int x = 0; x < data.nRecs; x++){
+      if(dnsJobs[i].core == dnsJobs[x].core){
+         if(big == dnsJobs[i].core){ao++;}
+      }else {//if(dnsJobs[i].core > dnsJobs[x].core){
+         big = dnsJobs[i].core;
+         bigID = dnsJobs[i].serverType;
+         ao = 0;
+      }
+   }
+}
 
          System.out.println(bigID + " "+ ao + " " + big );
-         dout.write(("SCHD "+ job.jobID + " "+ dnsJobs[1].serverType+ " " + dnsJobs[1].serverID +"\n").getBytes());
-         dout.flush();
+         for(int i = 0; i < ao; i++){
+            dout.write(("SCHD "+ job.jobID + " "+ bigID + " " + i +"\n").getBytes());
+            dout.flush();
 
+         }
+
+         str = br.readLine();
+         PP(str);
 
          dout.close();
          s.close();   
@@ -131,7 +131,45 @@ public class MyClient {
       System.out.println("Computer Says: " + s);
    }
 
+   static void MSG_ok(){
+      dout.write(("OK\n").getBytes());
+      dout.flush();
+   }
+
 }
+
+
+
+/*
+
+int big = 0;
+int ao = 0;
+String bigID = new String();
+Boolean biggest = false;
+
+
+for(int i = 1; i < data.nRecs;i++){
+   for(int x = 0; x < data.nRecs; x++){
+      if(dnsJobs[i].core == dnsJobs[x].core){
+         if((dnsJobs[i].serverType).equals(dnsJobs[x].serverType)){
+            ao++;
+         }else{
+            ao = 0;
+         }
+      }else if(dnsJobs[i].core < dnsJobs[x].core){
+          bigID = dnsJobs[x].serverType;
+          biggest = true;
+          big = dnsJobs[x].core;  
+      }else{
+         ao = 0;
+      }
+   }
+   if(biggest)break;
+
+}
+*/
+
+
 
 
 
