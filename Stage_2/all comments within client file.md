@@ -158,3 +158,29 @@ for(int i = 1; i < data.nRecs;i++){
 }
  * 
  */
+
+
+
+
+
+
+ Stage 1
+
+ finding the biggest server 
+
+          //    if(!CheckLargestServer){
+         //    CheckLargestServer = true;
+         //    for(int i = 0; i < data.nRecs;i++){
+         //          for(int x = 0; x < data.nRecs; x++){
+         //             if(dnsJobs[i].core == dnsJobs[x].core){
+         //                if(big == dnsJobs[i].core){AmountServer++;}
+         //             }else {
+         //                big = dnsJobs[i].core;
+         //                bigID = dnsJobs[i].serverType;
+         //                AmountServer = 0;
+         //             }
+         //          }
+         //      }
+         //    //System.out.println("**Server Type- "+bigID + " **Amount of Servers-  "+ AmountServer + " **Amount of cores- " + big );
+
+         // }

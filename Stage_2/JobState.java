@@ -76,10 +76,6 @@ public class JobState implements Comparable<JobState> {
         }
     }
 
-
-
-
-
     private int changeSTR(String str){
         return Integer.parseInt(str);
     }

@@ -5,6 +5,8 @@ public class MyClient{
    
    static DataOutputStream dout;
    static BufferedReader br; 
+   static String str = new String();
+
 
    static void MSG_OK(){
       try{
@@ -60,14 +62,23 @@ public class MyClient{
          }
      }
 
-     static void PP(String s){
-     // System.out.println("Computer Says: " + s);
-     }   
-
+     static void HandShake(){
+      try{
+         
+         MSG_HELO();
+         str = br.readLine();  
+         MSG_AUTH();
+         str = br.readLine();
+      
+      }catch(IOException e){
+      
+         System.out.println(e);
+      
+      }
+     }
 
    public static void main(String[] args) {
 
-      String str = new String();
       int serverCount = 0;
       int big = 0;
       int AmountServer = 0;
@@ -80,21 +91,16 @@ public class MyClient{
          dout = new DataOutputStream(s.getOutputStream());
          br = new BufferedReader(new InputStreamReader(s.getInputStream()));
 
-         MSG_HELO();
-            str = br.readLine();
-            PP(str);
-         
-         MSG_AUTH();
-            str = br.readLine();
-            PP(str);
-         
+         //Start commincation with server with 'Helo' then Authencate the user
+         HandShake();
+
         String CHECKEND = new String();
 
          while(!(CHECKEND.equals("NONE"))){
-//when JCPL -> redy then JOBN
+
+            //when JCPL -> redy then JOBN
             MSG_REDY();
                str = br.readLine();
-               PP(str);  
 
             JobnSplit job; 
             job = new JobnSplit(str);
@@ -102,7 +108,6 @@ public class MyClient{
             while(job.is_JCPL()){
                MSG_REDY();
                   str = br.readLine();
-                  PP(str);
                   job = new JobnSplit(str);  
             }
 
@@ -112,9 +117,8 @@ public class MyClient{
 
             MSG_GETS_C(job);
                str = br.readLine();
-               PP(str); 
-            DataSplit data;
-            data = new DataSplit(str);
+               DataSplit data;
+               data = new DataSplit(str);
 
             MSG_OK();
 
@@ -125,47 +129,29 @@ public class MyClient{
                //System.out.println(str);
             }  
 
-            if(!CheckLargestServer){
-            CheckLargestServer = true;
-            for(int i = 0; i < data.nRecs;i++){
-                  for(int x = 0; x < data.nRecs; x++){
-                     if(dnsJobs[i].core == dnsJobs[x].core){
-                        if(big == dnsJobs[i].core){AmountServer++;}
-                     }else {
-                        big = dnsJobs[i].core;
-                        bigID = dnsJobs[i].serverType;
-                        AmountServer = 0;
-                     }
-                  }
-              }
-            //System.out.println("**Server Type- "+bigID + " **Amount of Servers-  "+ AmountServer + " **Amount of cores- " + big );
-
-         }
-
+// **** place here to allocate which server it should go to 
 
             MSG_OK();
                 str = br.readLine();
-                PP(str); 
 
             dout.write(("SCHD "+ job.jobID + " "+ bigID + " " + serverCount +"\n").getBytes());
             dout.flush();
+          
             serverCount++;
-                str = br.readLine();
-                PP(str); 
+            str = br.readLine();
 
             MSG_OK();
-                str = br.readLine();
-                PP(str); 
+            str = br.readLine();
 
             if(serverCount > AmountServer ){
               serverCount = 0;
             }
+
            CHECKEND = br.readLine();
         }
 
          MSG_QUIT();
-            str = br.readLine();
-            PP(str);
+         str = br.readLine();
 
          dout.close();
          s.close();   
@@ -177,3 +163,11 @@ public class MyClient{
    }
 
 }
+/**
+ * ***** DELETE BEFORE SUBMITTING **************
+ *  MY NOTES:
+ * 
+ * - ADD COMMENTS ON WHAT THE OTHER CLASSES ARE DOING
+ * 
+ * 
+ */
