@@ -1,4 +1,4 @@
-public class JobState implements Comparable<JobState> {
+public class JobState {
     
     String serverType = new String();
     int serverID;
@@ -11,7 +11,6 @@ public class JobState implements Comparable<JobState> {
     int rJobs;
 
     
-
     public JobState(String str){
 
         String[] sBreak = new String[10];
@@ -63,17 +62,6 @@ public class JobState implements Comparable<JobState> {
 
     public int getrJobs(){
         return rJobs;
-    }
-
-    @Override
-    public int compareTo(JobState js){
-        if(this.core == js.core){
-            return 0;
-        }else if(this.core < js.core){
-            return 1;
-        }else{
-            return 0;
-        }
     }
 
     private int changeSTR(String str){

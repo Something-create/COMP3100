@@ -124,36 +124,23 @@ public class MyClient{
 
             MSG_OK();
 
-               //The class jobState Records all the server that are able to be used 
+               //The class JobState Records all the server that are able to be used 
             JobState[] dnsJobs = new JobState[data.nRecs+1];
             for(int i = 0; i < data.nRecs; i++){ 
                str = br.readLine(); 
                dnsJobs[i] = new JobState(str);
-                  //System.out.println(str);
             }  
-
-// **** place here to allocate which server it should go to 
-
+            
             MSG_OK();
-                str = br.readLine();
-
-     
-            if(!((dnsJobs[0].state).equals("inactive")) || !((dnsJobs[0].state).equals("idle"))){
-               serverCount++;
-            }
-
-            dout.write(("SCHD "+ job.jobID + " "+ dnsJobs[0].serverType + " " + serverCount +"\n").getBytes());
-            dout.flush();
-          
-           // serverCount++;
+            str = br.readLine();
+            
+               //handles which jobs will go to the server
+            assignServer Assignment = new assignServer(dnsJobs);  
+            Assignment.MSG_SCHD(job.jobID);
             str = br.readLine();
 
             MSG_OK();
             str = br.readLine();
-
-            // if(serverCount > AmountServer ){
-            //   serverCount = 0;
-            // }
 
            CHECKEND = br.readLine();
         }
@@ -177,5 +164,5 @@ public class MyClient{
  * 
  * - ADD COMMENTS ON WHAT THE OTHER CLASSES ARE DOING
  * - record server amount
- * 
+ * - create a way to search trow the server and find the best server to place the job
  */
