@@ -138,22 +138,22 @@ public class MyClient{
                 str = br.readLine();
 
      
-            if(!((dnsJobs[CurrentServer].state).equals("inactive")) || !((dnsJobs[CurrentServer].state).equals("idle"))){
+            if(!((dnsJobs[0].state).equals("inactive")) || !((dnsJobs[0].state).equals("idle"))){
                serverCount++;
             }
 
-            dout.write(("SCHD "+ job.jobID + " "+ dnsJobs[CurrentServer].serverType + " " + serverCount +"\n").getBytes());
+            dout.write(("SCHD "+ job.jobID + " "+ dnsJobs[0].serverType + " " + serverCount +"\n").getBytes());
             dout.flush();
           
-            serverCount++;
+           // serverCount++;
             str = br.readLine();
 
             MSG_OK();
             str = br.readLine();
 
-            if(serverCount > AmountServer ){
-              serverCount = 0;
-            }
+            // if(serverCount > AmountServer ){
+            //   serverCount = 0;
+            // }
 
            CHECKEND = br.readLine();
         }
