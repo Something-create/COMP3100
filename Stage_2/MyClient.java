@@ -82,7 +82,6 @@ public class MyClient{
       int serverCount = 0;
       int big = 0;
       int AmountServer = 0;
-      String bigID = new String();
       Boolean CheckLargestServer = false;
 
       try{
@@ -134,7 +133,7 @@ public class MyClient{
             MSG_OK();
                 str = br.readLine();
 
-            dout.write(("SCHD "+ job.jobID + " "+ bigID + " " + serverCount +"\n").getBytes());
+            dout.write(("SCHD "+ job.jobID + " "+ dnsJobs[0].serverType + " " + serverCount +"\n").getBytes());
             dout.flush();
           
             serverCount++;
