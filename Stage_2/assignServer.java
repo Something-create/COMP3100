@@ -58,19 +58,11 @@ public class assignServer {
     //     System.out.println(o);
     //  }
 
-    void MSG_SCHD(int i){
-        try{
-            //dout.write(("SCHD "+ i + " "+  WhichServer(servers[0].serverType) + " " + curPos.get(servers[0].serverType) +"\n").getBytes());
-            dout.write(("SCHD "+ i + " "+  servers[0].serverType + " " + 1 +"\n").getBytes());
-            dout.flush();
-        }catch(Exception e){
-         System.out.println(e);
-         }
-     }
-
-
+    String MSG_SCHD(int i){   
+        //dout.write(("SCHD "+ i + " "+  WhichServer(servers[0].serverType) + " " + curPos.get(servers[0].serverType) +"\n").getBytes());  
+        return ("SCHD "+ i + " "+  servers[0].serverType + " " + 1 +"\n");       
+    }
 }
-
 
 /**
  * 

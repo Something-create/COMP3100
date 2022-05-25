@@ -145,10 +145,13 @@ public class MyClient{
             
             //handles which jobs will go to the server
             assignServer Assignment = new assignServer(dnsJobs);  
-            Assignment.MSG_SCHD(job.jobID);
+            // Assignment.MSG_SCHD(job.jobID);
             
             // dout.write(("SCHD "+ job.jobID + " "+  dnsJobs[0].serverType + " " + 1 +"\n").getBytes());
             // dout.flush();
+
+            dout.write(Assignment.MSG_SCHD(job.jobID).getBytes());
+            dout.flush();
 
             str = br.readLine();
             print(str);
