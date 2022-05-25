@@ -67,14 +67,19 @@ public class MyClient{
          
          MSG_HELO();
          str = br.readLine();  
+               print(str);
          MSG_AUTH();
          str = br.readLine();
-      
+         print(str);
       }catch(IOException e){
       
          System.out.println(e);
       
       }
+     }
+
+     static void print(Object o){
+        System.out.println(o);
      }
 
    public static void main(String[] args) {
@@ -97,9 +102,9 @@ public class MyClient{
          while(!(CHECKEND.equals("NONE"))){
 
            
-            MSG_REDY();
+               MSG_REDY();
                str = br.readLine();
-
+               print(str);
                //The Class JobnSplit breaks apart the messages Jobn, JCPL, NONE 
                //This class takes care of the jobs that require to be completed, is completed or there is no jobs.  
             JobnSplit job; 
@@ -107,11 +112,11 @@ public class MyClient{
 
                //when JCPL -> redy then JOBN
             while(job.is_JCPL()){
-               MSG_REDY();
+                  MSG_REDY();
                   str = br.readLine();
                   job = new JobnSplit(str);  
             }
-
+            print(str);
             if(job.is_NONE()){
                break;
             }
@@ -121,7 +126,7 @@ public class MyClient{
                   //The class DataSplit breaks apart the message DATA message that is sent by the server *** DATA nRecs recLen
                DataSplit data;
                data = new DataSplit(str);
-
+               print(str);
             MSG_OK();
 
                //The class JobState Records all the server that are able to be used 
@@ -130,18 +135,18 @@ public class MyClient{
                str = br.readLine(); 
                dnsJobs[i] = new JobState(str);
             }  
-            
+            print(str);
             MSG_OK();
             str = br.readLine();
-            
+            print(str);
                //handles which jobs will go to the server
             assignServer Assignment = new assignServer(dnsJobs);  
             Assignment.MSG_SCHD(job.jobID);
             str = br.readLine();
-
+            print(str);
             MSG_OK();
             str = br.readLine();
-
+            print(str);
            CHECKEND = br.readLine();
         }
 

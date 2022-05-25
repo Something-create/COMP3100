@@ -12,6 +12,7 @@ public class assignServer {
 
     public assignServer(JobState[] js){
         servers = js;
+        findServerAmount();
     }
 
     public void findServerAmount(){
@@ -53,6 +54,10 @@ public class assignServer {
         return servers[0].serverType;
     }
     
+    static void print(Object o){
+        System.out.println(o);
+     }
+
     void MSG_SCHD(int i){
         try{
             dout.write(("SCHD "+ i + " "+  WhichServer(servers[0].serverType) + " " + curPos.get(servers[0].serverType) +"\n").getBytes());
