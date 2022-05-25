@@ -17,24 +17,28 @@ public class assignServer {
 
     public void findServerAmount(){
         String Current = servers[0].serverType;
+        print("Current " + Current);
         Integer amount = 0;
         for(int i = 0; i <= servers.length; i++){
-                if(Current.equals(servers[i].serverType)){
-                    amount++;
-                }else{
-                    addToSearched(Current, amount);
-                    Current = servers[i].serverType;
-                    amount = 0;
-                }
+            if(Current.equals(servers[i].serverType)){
+                print("Current " + Current);
+                amount++;
+            }else{
+                addToSearched(Current, amount);
+                Current = servers[i].serverType;
+                amount = 0;
+            }
         }
     }
 
         //add the amount of servers to a hashmap 
     public void addToSearched(String s, Integer i){
+        print("addtoosearch " + s);
         serverAmount.put(s, i);
     }
     
     public int alreadySearched(String s){   
+        print("AlreadySearched " + s);
         if(serverAmount.get(s) == null)
             return 0;
         return serverAmount.get(s);
@@ -45,7 +49,7 @@ public class assignServer {
     }
 
     public String WhichServer(String s){
-
+        print("whichserver " + s);
         if(serverAmount.get(s) == null){
             curPos.put(s, 1);
         }
