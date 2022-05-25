@@ -18,7 +18,7 @@ public class assignServer {
     public void findServerAmount(){
         String Current = servers[0].serverType;
         Integer amount = 0;
-        for(int i = 0; i < servers.length; i++){
+        for(int i = 0; i <= servers.length; i++){
                 if(Current.equals(servers[i].serverType)){
                     amount++;
                 }else{
