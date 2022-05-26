@@ -12,18 +12,23 @@ public class assignServer {
 
     public assignServer(JobState[] js){
         servers = js;
-        findServerAmount(servers[0].serverType);
+        if(alreadySearched(servers[0].serverType) == 0){
+            findServerAmount(servers[0].serverType);
+        }
     }
 
     public void findServerAmount(String s){ 
         print("Current " + s);
         Integer amount = 0;
-        for(int i = 0; i <= servers.length-1; i++){
+        for(int i = 0; i < servers.length-1; i++){
             if(s.equals(servers[i].serverType)){
                 print("Current " + s);
                 amount++;
+            }else{
+                break;
             }      
         }
+        print("amount of " + s + "IS "+ amount);
         addToSearched(s, amount);
     }
 
@@ -60,22 +65,19 @@ public class assignServer {
 
     String MSG_SCHD(int i){   
         //
-        return ("SCHD "+ i + " "+  WhichServer(servers[0].serverType) + " " + curPos.get(servers[0].serverType) +"\n") ; //("SCHD "+ i + " "+  servers[0].serverType + " " + 1 +"\n");       
+        return ("SCHD "+ i + " "+  servers[0].serverType + " " + 1 + "\n") ; //("SCHD "+ i + " "+  servers[0].serverType + " " + 1 +"\n");       
+    }
+
+    static void printMAP(){
+        serverAmount.forEach((key,value)-> {
+            print("value within serverAmount of "+ key + " IS " + value);
+        });
     }
 }
 
 /**
- * 
- *             if(!((dnsJobs[0].state).equals("inactive")) || !((dnsJobs[0].state).equals("idle"))){
-               serverCount++;
-            }
-
-           int count = 0;
-            if(dnsJobs[serverCount].alreadySearched(dnsJobs[serverCount].serverType) == 0){
-               for(int i= 0; i <data.nRecs; i++){
-                  if((dnsJobs[i].state).equals(dnsJobs[i+1].state)){
-                     count++;
-                  }
-               }
-            }
+ *         serverAmount.forEach((key,value)-> {
+            print("value within serverAmount of "+ key + " IS " + value);
+        });
+    Problem with which server
  */

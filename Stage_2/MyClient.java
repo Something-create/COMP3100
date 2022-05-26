@@ -46,7 +46,8 @@ public class MyClient{
      static void MSG_GETS_C(JobnSplit job){
         try{ 
            int k = job.getcore();
-           dout.write(("GETS Capable "+ k + " " + job.getmemory()+ " " + job.getdisk() + " " +"\n").getBytes());
+            dout.write(("GETS Capable "+ k + " " + job.getmemory()+ " " + job.getdisk() + " " +"\n").getBytes());
+//           dout.write(("GETS All").getBytes());
            dout.flush();
         }catch(Exception e){
            System.out.println(e);
@@ -144,7 +145,7 @@ public class MyClient{
             print(str);
             
             //handles which jobs will go to the server
-            assignServer Assignment = new assignServer(dnsJobs);  
+            assignServer Assignment  = new assignServer(dnsJobs);  
             // Assignment.MSG_SCHD(job.jobID);
             
             // dout.write(("SCHD "+ job.jobID + " "+  dnsJobs[0].serverType + " " + 1 +"\n").getBytes());
@@ -163,11 +164,15 @@ public class MyClient{
             CHECKEND = br.readLine();
         }
 
+        // TEST
+         assignServer.printMAP();
+        
          MSG_QUIT();
          str = br.readLine();
 
          dout.close();
-         s.close();   
+         s.close();  
+
 
       }catch(Exception e){
         System.out.println(e);
