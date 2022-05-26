@@ -50,10 +50,17 @@ public class assignServer {
     }
 
     public String WhichServer(String s){
+        String CurrentType = s;
+        int currentServerNum = 0;
         print("whichserver " + s);
-        if(serverAmount.get(s) == null){
-            curPos.put(s, 1);
+
+        if(curPos.get(s) == null){
+            curPos.put(s, 0);
+        }else{
+            currentServerNum = alreadySearched(s);
         }
+        
+        
         int cur = curPos.get(s);
         curPos.replace(s, cur, cur++);
         return servers[0].serverType;

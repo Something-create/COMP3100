@@ -45,21 +45,20 @@ public class MyClient{
   
      static void MSG_GETS_C(JobnSplit job){
         try{ 
-           int k = job.getcore();
+            int k = job.getcore();
             dout.write(("GETS Capable "+ k + " " + job.getmemory()+ " " + job.getdisk() + " " +"\n").getBytes());
-//           dout.write(("GETS All").getBytes());
-           dout.flush();
+            dout.flush();
         }catch(Exception e){
-           System.out.println(e);
+            System.out.println(e);
         }
      }
 
      static void MSG_QUIT(){
         try{
-         dout.write(("QUIT\n").getBytes());
-         dout.flush();
+            dout.write(("QUIT\n").getBytes());
+            dout.flush();
         }catch(Exception e){
-         System.out.println(e);
+            System.out.println(e);
          }
      }
 
