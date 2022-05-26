@@ -12,23 +12,19 @@ public class assignServer {
 
     public assignServer(JobState[] js){
         servers = js;
-        findServerAmount();
+        findServerAmount(servers[0].serverType);
     }
 
-    public void findServerAmount(){
-        String Current = servers[0].serverType;
-        print("Current " + Current);
+    public void findServerAmount(String s){ 
+        print("Current " + s);
         Integer amount = 0;
-        for(int i = 0; i <= servers.length; i++){
-            if(Current.equals(servers[i].serverType)){
-                print("Current " + Current);
+        for(int i = 0; i <= servers.length-1; i++){
+            if(s.equals(servers[i].serverType)){
+                print("Current " + s);
                 amount++;
-            }else{
-                addToSearched(Current, amount);
-                Current = servers[i].serverType;
-                amount = 0;
-            }
+            }      
         }
+        addToSearched(s, amount);
     }
 
         //add the amount of servers to a hashmap 
