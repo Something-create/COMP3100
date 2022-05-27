@@ -20,6 +20,7 @@ public class assignServer {
     public void findServerAmount(String s){ 
         print("Current " + s);
         Integer amount = 0;
+        print("amount of " + s + "IS "+ amount);
         for(int i = 0; i < servers.length-1; i++){
             if(s.equals(servers[i].serverType)){
                 print("Current " + s);
@@ -50,25 +51,29 @@ public class assignServer {
     }
 
     public String WhichServer(String s){
-        int curServerMax = alreadySearched(s);
-        int curPosition = curPos.get(s);
-        int newPos = 0;
 
-        if(alreadySearched(s) == 0){//add value
+        if(serverAmount.get(s) == null){//add value
+            print("1");
             findServerAmount(s);
         }
         if(curPos.get(s) == null){//add value
+            print("2");
             curPos.put(s, -1);
         }
+
+        int curServerMax = alreadySearched(s);
+        int curPosition = curPos.get(s);
+        int newPos = 0;
       
-        if(curPosition == curServerMax -1){//reset the curPosition
+        if(curPosition >= curServerMax ){//reset the curPosition
             curPos.replace(s, curPosition, newPos);
         }else{ //add one to curPOsiton 
             newPos = curPosition + 1;    
             curPos.replace(s, curPosition, newPos);
         }
         print("whichserver " + s);
-        return " " + s + " " + newPos;
+       // print("Server =  " + "" + s + " " + newPos + "\n");
+        return (" " + s + " " + newPos + "\n");
     }
     
     static void print(Object o){
@@ -77,7 +82,7 @@ public class assignServer {
 
     String MSG_SCHD(int i){   
         //
-        return ("SCHD " + WhichServer(servers[0].serverType));
+        return ("SCHD " + i + WhichServer(servers[0].serverType));
       //  + i + " "+  servers[0].serverType + " " + 1 + "\n") ; ("SCHD "+ i + " "+  servers[0].serverType + " " + 1 +"\n");       
     }
 
