@@ -50,20 +50,25 @@ public class assignServer {
     }
 
     public String WhichServer(String s){
-        String CurrentType = s;
-        int currentServerNum = 0;
-        print("whichserver " + s);
+        int curServerMax = alreadySearched(s);
+        int curPosition = curPos.get(s);
+        int newPos = 0;
 
-        if(curPos.get(s) == null){
-            curPos.put(s, 0);
-        }else{
-            currentServerNum = alreadySearched(s);
+        if(alreadySearched(s) == 0){//add value
+            findServerAmount(s);
         }
-        
-        
-        int cur = curPos.get(s);
-        curPos.replace(s, cur, cur++);
-        return servers[0].serverType;
+        if(curPos.get(s) == null){//add value
+            curPos.put(s, -1);
+        }
+      
+        if(curPosition == curServerMax -1){//reset the curPosition
+            curPos.replace(s, curPosition, newPos);
+        }else{ //add one to curPOsiton 
+            newPos = curPosition + 1;    
+            curPos.replace(s, curPosition, newPos);
+        }
+        print("whichserver " + s);
+        return " " + s + " " + newPos;
     }
     
     static void print(Object o){
@@ -72,7 +77,8 @@ public class assignServer {
 
     String MSG_SCHD(int i){   
         //
-        return ("SCHD "+ i + " "+  servers[0].serverType + " " + 1 + "\n") ; //("SCHD "+ i + " "+  servers[0].serverType + " " + 1 +"\n");       
+        return ("SCHD " + WhichServer(servers[0].serverType));
+      //  + i + " "+  servers[0].serverType + " " + 1 + "\n") ; ("SCHD "+ i + " "+  servers[0].serverType + " " + 1 +"\n");       
     }
 
     static void printMAP(){
