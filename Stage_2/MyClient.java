@@ -67,10 +67,8 @@ public class MyClient{
          
          MSG_HELO();
          str = br.readLine();  
-               print(str);
          MSG_AUTH();
          str = br.readLine();
-         print(str);
       }catch(IOException e){
       
          System.out.println(e);
@@ -78,15 +76,7 @@ public class MyClient{
       }
      }
 
-     static void print(Object o){
-        System.out.println(o);
-     }
-
    public static void main(String[] args) {
-
-      int serverCount = 0;
-      int AmountServer = 0;
-      int CurrentServer = 0;
 
       try{
 
@@ -104,7 +94,7 @@ public class MyClient{
            
             MSG_REDY();
             str = br.readLine();
-            print(str);
+
             
                //The Class JobnSplit breaks apart the messages Jobn, JCPL, NONE 
                //This class takes care of the jobs that require to be completed, is completed or there is no jobs.  
@@ -117,7 +107,6 @@ public class MyClient{
                   job = new JobnSplit(str);  
             }
 
-            print(str);
             
             if(job.is_NONE()){
                break;
@@ -127,44 +116,33 @@ public class MyClient{
                str = br.readLine();
                   //The class DataSplit breaks apart the message DATA message that is sent by the server *** DATA nRecs recLen
             DataSplit data = new DataSplit(str);
-            print(str);
                
             MSG_OK();
 
-               //The class JobState Records all the server that are able to be used 
+            //The class JobState Records all the server that are able to be used 
             JobState[] dnsJobs = new JobState[data.nRecs+1];
             for(int i = 0; i < data.nRecs; i++){ 
                str = br.readLine(); 
                dnsJobs[i] = new JobState(str);
             }
 
-            print(str);
             MSG_OK();
             str = br.readLine();
-            print(str);
+
             
             //handles which jobs will go to the server
             assignServer Assignment  = new assignServer(dnsJobs);  
-            // Assignment.MSG_SCHD(job.jobID);
-            
-            // dout.write(("SCHD "+ job.jobID + " "+  dnsJobs[0].serverType + " " + 1 +"\n").getBytes());
-            // dout.flush();
 
             dout.write(Assignment.MSG_SCHD(job.jobID).getBytes());
             dout.flush();
 
             str = br.readLine();
-            print(str);
-            
+                 
             MSG_OK();
             str = br.readLine();
-            print(str);
-           
+      
             CHECKEND = br.readLine();
         }
-
-        // TEST
-         assignServer.printMAP();
         
          MSG_QUIT();
          str = br.readLine();
@@ -180,11 +158,3 @@ public class MyClient{
    }
 
 }
-/**
- * ***** DELETE BEFORE SUBMITTING **************
- *  MY NOTES:
- * 
- * - ADD COMMENTS ON WHAT THE OTHER CLASSES ARE DOING
- * - record server amount
- * - create a way to search trow the server and find the best server to place the job
- */

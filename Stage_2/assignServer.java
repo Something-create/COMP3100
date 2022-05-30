@@ -1,10 +1,14 @@
 import java.util.HashMap;
 import java.util.Map;
 import java.io.*;
-import java.net.*;
 
 public class assignServer {
 
+    /**
+     * 
+     * This class decides what sever to put the job in
+     * 
+     */
     static DataOutputStream dout;
     static Map<String, Integer> serverAmount = new HashMap<String, Integer>();
     static Map<String, Integer> curPos = new HashMap<String, Integer>();
@@ -17,47 +21,38 @@ public class assignServer {
         }
     }
 
+    //checks the amount of server type there are
     public void findServerAmount(String s){ 
-        print("Current " + s);
         Integer amount = 0;
-        print("amount of " + s + "IS "+ amount);
         for(int i = 0; i < servers.length-1; i++){
             if(s.equals(servers[i].serverType)){
-                print("Current " + s);
                 amount++;
             }else{
                 break;
             }      
         }
-        print("amount of " + s + "IS "+ amount);
         addToSearched(s, amount);
     }
 
         //add the amount of servers to a hashmap 
     public void addToSearched(String s, Integer i){
-        print("addtoosearch " + s);
         serverAmount.put(s, i);
     }
     
+    //checks if the server type has been searched
     public int alreadySearched(String s){   
-        print("AlreadySearched " + s);
         if(serverAmount.get(s) == null)
             return 0;
         return serverAmount.get(s);
     } 
 
-    public int currentCount(String s){
-        return 0;
-    }
-
+    //the conmpare function
     public String WhichServer(String s){
 
         if(serverAmount.get(s) == null){//add value
-            print("1");
             findServerAmount(s);
         }
         if(curPos.get(s) == null){//add value
-            print("2");
             curPos.put(s, -1);
         }
 
@@ -71,31 +66,12 @@ public class assignServer {
             newPos = curPosition + 1;    
             curPos.replace(s, curPosition, newPos);
         }
-        print("whichserver " + s);
-       // print("Server =  " + "" + s + " " + newPos + "\n");
+
         return (" " + s + " " + newPos + "\n");
     }
-    
-    static void print(Object o){
-        System.out.println(o);
-     }
 
+    //this function sends back the server with the command SCHD
     String MSG_SCHD(int i){   
-        //
         return ("SCHD " + i + WhichServer(servers[0].serverType));
-      //  + i + " "+  servers[0].serverType + " " + 1 + "\n") ; ("SCHD "+ i + " "+  servers[0].serverType + " " + 1 +"\n");       
-    }
-
-    static void printMAP(){
-        serverAmount.forEach((key,value)-> {
-            print("value within serverAmount of "+ key + " IS " + value);
-        });
     }
 }
-
-/**
- *         serverAmount.forEach((key,value)-> {
-            print("value within serverAmount of "+ key + " IS " + value);
-        });
-    Problem with which server
- */

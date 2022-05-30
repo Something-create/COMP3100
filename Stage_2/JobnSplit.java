@@ -1,6 +1,8 @@
 
 public class JobnSplit{
 
+    //This class breaks down the job type message from the server
+    
     //types of outputs from sever
     String Type = new String();
 
@@ -24,6 +26,7 @@ public class JobnSplit{
         //split string
          String[] sBreak = new String[10];
          sBreak = s.split(" ");
+        
 
          Type = sBreak[0];
 
@@ -47,8 +50,6 @@ public class JobnSplit{
         return Integer.parseInt(str);
     }
 
-    //get constructors 
-
     public int getsubmitTime(){
         return submitTime;
     }
@@ -69,13 +70,14 @@ public class JobnSplit{
         return disk;
     }
 
-
+    //checks if it is a JCPL message
     public boolean is_JCPL(){
         if(Type.equals("JCPL"))
             return true;
         return false;
     }
 
+    //Checks if it is a none message
     public boolean is_NONE(){
         if(Type.equals("NONE")){
             return true;

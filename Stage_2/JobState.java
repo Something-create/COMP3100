@@ -1,5 +1,7 @@
 public class JobState {
     
+//this class breaks down the server information and states message from the server
+
     String serverType = new String();
     int serverID;
     String state = new String();
